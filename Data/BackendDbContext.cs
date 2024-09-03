@@ -1,14 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using backends.Entities;
 
-namespace backends.Data;
+namespace backends.Data
 {
     public class BackendsDbContext : DbContext
     {
-        public BackendsDbContext(DbContextOptions<BackendsDbContext> options) : base(options)
+        public BackendsDbContext(DbContextOptions<BackendsDbContext> options) :
+            base(options)
         {
-
         }
-        public DbSet<User> Users {get; set;}
+
+        public DbSet<User> Users { get; set; }
     }
 }

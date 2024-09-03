@@ -96,3 +96,11 @@
 /home/tshepo/Desktop/projects/backends/obj/Debug/net8.0/backends.pdb
 /home/tshepo/Desktop/projects/backends/obj/Debug/net8.0/backends.genruntimeconfig.cache
 /home/tshepo/Desktop/projects/backends/obj/Debug/net8.0/ref/backends.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/AutoMapper.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Dapper.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/FluentValidation.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/MediatR.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/MediatR.Contracts.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Npgsql.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Serilog.dll
