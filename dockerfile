@@ -20,4 +20,4 @@ RUN dotnet build -c Release
 EXPOSE 80
 
 # Run the command to start the .NET application when the container launches
-CMD ["dotnet", "run"]
+CMD ["dotnet", "backends"]
