@@ -3,6 +3,7 @@ using backends.Data;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System;
+using Microsoft.AspNetCore.Mvc;
 using backends.Entities;
 
 
@@ -14,8 +15,15 @@ builder.Services.AddDbContext<BackendsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
+app.MapPost("/users", async (BackendsDbContext dbContext, [FromBody] User user) =>
+{
+    dbContext.Users.Add(user);
+    await dbContext.SaveChangesAsync();
+    return Results.Created($"/users/{user.Id}", user);
+});
 
 app.Run();

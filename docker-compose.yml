@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   db:
@@ -9,9 +9,10 @@ services:
       POSTGRES_PASSWORD: admin123
       POSTGRES_DB: event-db
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
+    # network_mode: "host"
 
   pgadmin:
     image: dpage/pgadmin4

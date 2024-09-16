@@ -32,5 +32,11 @@ namespace backends.Controllers
             new { id = user.Id },
             user);
         }
+
+        [HttpGet("test")]
+        public string Test()
+        {
+            return "this is database test";
+        }
     }
 }
