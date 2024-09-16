@@ -5,7 +5,7 @@ namespace backends.Entities
     public class User
     {
         [Column("id")]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Column("name")]
         public required string Name { get; set; }
         [Column("email")]
