@@ -1,22 +1,5 @@
-i should be able to add a date in the calendar
-that date will have:
-
-event:
-    name of event
-    user
-    date and time
-    registration url
-
-user: 
-    username:
-    name
-
-activity :
-    user
-    event
-    notes
-
-
-
-
-# events-api
+GET /api/users: Get all users
+GET /api/users/{id}: Get a specific user
+POST /api/users: Create a new user
+PUT /api/users/{id}: Update an existing user
+DELETE /api/users/{id}: Delete a user
