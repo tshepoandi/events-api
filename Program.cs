@@ -9,7 +9,7 @@ using backends.Entities;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddControllers();
 builder.Services.AddDbContext<BackendsDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -19,11 +19,12 @@ builder.Services.AddDbContext<BackendsDbContext>(options =>
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
-app.MapPost("/users", async (BackendsDbContext dbContext, [FromBody] User user) =>
-{
-    dbContext.Users.Add(user);
-    await dbContext.SaveChangesAsync();
-    return Results.Created($"/users/{user.Id}", user);
-});
+app.MapControllers();
+// app.MapPost("/users", async (BackendsDbContext dbContext, [FromBody] User user) =>
+// {
+//     dbContext.Users.Add(user);
+//     await dbContext.SaveChangesAsync();
+//     return Results.Created($"/users/{user.Id}", user);
+// });
 
 app.Run();
