@@ -71,6 +71,10 @@
             "Serilog": {
               "target": "Package",
               "version": "[4.0.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.7.3, )"
             }
           },
           "imports": [
