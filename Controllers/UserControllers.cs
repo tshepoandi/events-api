@@ -36,14 +36,19 @@ namespace backends.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> CreateUser(User user)
+        public async Task<ActionResult<User>> CreateUser(UserCreateDto userDto)
         {
+            var user =
+                new User {
+                    Username = userDto.Username,
+                    Password = HashPassword(userDto.Password), // Implement password hashing
+                    Email = userDto.Email
+                };
+
             _context.Users.Add (user);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUsers),
-            "Users",
-            new { id = user.Id },
-            user);
+
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
 
         [HttpPut("{id}")]
