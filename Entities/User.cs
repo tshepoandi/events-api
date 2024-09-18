@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 namespace backends.Entities
 {
-    [Table("user")]
+    [Table("users")]
     public class User
     {
         [Key]
@@ -16,6 +16,7 @@ namespace backends.Entities
         [EmailAddress]
         [StringLength(100)]
         public required string Email { get; set; }
+
         public ICollection<Event> CreatedEvents {get; set;}
         public ICollection<EventAttendee> AttendingEvents {get; set;}
         public ICollection<Review> Reviews {get; set;}

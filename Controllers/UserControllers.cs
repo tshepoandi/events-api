@@ -41,7 +41,7 @@ namespace backends.Controllers
             var user =
                 new User {
                     Username = userDto.Username,
-                    Password = HashPassword(userDto.Password), // Implement password hashing
+                    // Password = HashPassword(userDto.Password), // Implement password hashing
                     Email = userDto.Email
                 };
 
