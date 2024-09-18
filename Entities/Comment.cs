@@ -3,12 +3,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backends.Entities
 {
-    [Table("event_attendees")]
-    public class EventAttendee
+    [Table("comments")]
+    public class Comment
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
+        public string Content { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }
@@ -19,7 +22,5 @@ namespace backends.Entities
         public Event Event { get; set; }
 
         public int EventId { get; set; }
-
-        public ICollection<Picture> Picture { get; set; }
     }
 }
