@@ -104,3 +104,8 @@
 /home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Serilog.dll
 /home/tshepo/Desktop/projects/backends/obj/Debug/net8.0/backends.csproj.CopyComplete
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/home/tshepo/Desktop/projects/backends/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/home/tshepo/Desktop/projects/backends/obj/Debug/net8.0/backends.MvcApplicationPartsAssemblyInfo.cs
