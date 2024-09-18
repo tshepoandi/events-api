@@ -20,11 +20,6 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 app.MapControllers();
-// app.MapPost("/users", async (BackendsDbContext dbContext, [FromBody] User user) =>
-// {
-//     dbContext.Users.Add(user);
-//     await dbContext.SaveChangesAsync();
-//     return Results.Created($"/users/{user.Id}", user);
-// });
+
 
 app.Run();
