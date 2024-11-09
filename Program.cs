@@ -15,9 +15,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Your API Name",
+        Title = "Events API",
         Version = "v1",
-        Description = "API Documentation for Your Project",
+        Description = "Api for an events database",
         Contact = new OpenApiContact
         {
             Name = "Tshepo Samuel Mashiloane",
