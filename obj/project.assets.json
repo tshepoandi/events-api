@@ -2904,19 +2904,19 @@
     ]
   },
   "packageFolders": {
-    "/home/tshepo/.nuget/packages/": {}
+    "/home/shinobi/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/tshepo/Desktop/projects/backends/backends.csproj",
+      "projectUniqueName": "/home/shinobi/Desktop/projects/events-api/backends.csproj",
       "projectName": "backends",
-      "projectPath": "/home/tshepo/Desktop/projects/backends/backends.csproj",
-      "packagesPath": "/home/tshepo/.nuget/packages/",
-      "outputPath": "/home/tshepo/Desktop/projects/backends/obj/",
+      "projectPath": "/home/shinobi/Desktop/projects/events-api/backends.csproj",
+      "packagesPath": "/home/shinobi/.nuget/packages/",
+      "outputPath": "/home/shinobi/Desktop/projects/events-api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/tshepo/.nuget/NuGet/NuGet.Config"
+        "/home/shinobi/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2990,6 +2990,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.10, 8.0.10]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -2998,7 +3004,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
