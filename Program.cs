@@ -6,7 +6,6 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -36,15 +35,15 @@ builder.Services.AddSwaggerGen(options =>
     }
 });
 
-// Configure CORS
+// Configure CORS to allow any origin
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigins",
+    options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.WithOrigins("http://localhost:5173", "http://localhost:5000","http://localhost:5050")
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+            builder.AllowAnyOrigin() // Allow any origin
+                   .AllowAnyMethod() // Allow any method (GET, POST, etc.)
+                   .AllowAnyHeader(); // Allow any header
         });
 });
 
@@ -65,6 +64,7 @@ builder.Services.AddDbContext<BackendsDbContext>(options =>
     options.EnableDetailedErrors();
     options.EnableSensitiveDataLogging(); // Use carefully in production
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
@@ -79,7 +79,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowSpecificOrigins");
+app.UseCors("AllowAllOrigins"); // Use the new CORS policy
 app.UseAuthorization();
 app.MapControllers();
 
