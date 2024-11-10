@@ -57,19 +57,24 @@ builder.Services.AddCors(options =>
 // Configure Database
 builder.Services.AddDbContext<BackendsDbContext>(options =>
 {
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        x => {
-            x.EnableRetryOnFailure(
-                maxRetryCount: 5, 
-                maxRetryDelay: TimeSpan.FromSeconds(30), 
-                errorCodesToAdd: null
-            );
-        }
-    );
+    var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
+        ?? builder.Configuration.GetConnectionString("DefaultConnection");
+        
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("No database connection string configured");
+    }
+
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        npgsqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorCodesToAdd: null
+        );
+    });
     
     options.EnableDetailedErrors();
-    options.EnableSensitiveDataLogging(); // Use carefully in production
 });
 
 var app = builder.Build();

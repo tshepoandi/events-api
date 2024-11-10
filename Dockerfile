@@ -21,6 +21,7 @@ COPY --from=build /app/out .
 
 # Configure ASP.NET Core for proxied HTTPS
 ENV ASPNETCORE_URLS="http://+:80"
+ENV ASPNETCORE_ENVIRONMENT="Production"
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 
 EXPOSE 80
