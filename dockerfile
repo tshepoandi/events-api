@@ -1,23 +1,26 @@
-# Use an official .NET runtime as a parent image
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1
-
-# Set the working directory in the container
+# Use an official .NET SDK image for building
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Copy the .NET project file
-COPY *.csproj ./
-
-# Restore NuGet packages
+# Copy project file and restore dependencies
+COPY backends.csproj ./
 RUN dotnet restore
 
 # Copy the rest of the application code
 COPY . .
 
-# Build the .NET application
-RUN dotnet build -c Release
+# Publish the application
+RUN dotnet publish backends.csproj -c Release -o out
 
-# Expose the port the application will run on
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+
+# Copy the published output
+COPY --from=build /app/out .
+
+# Expose the port the app runs on
 EXPOSE 80
 
-# Run the command to start the .NET application when the container launches
-CMD ["dotnet", "backends"]
+# Run the application
+ENTRYPOINT ["dotnet", "backends.dll"]

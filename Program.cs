@@ -6,6 +6,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -50,9 +51,20 @@ builder.Services.AddCors(options =>
 // Configure Database
 builder.Services.AddDbContext<BackendsDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        x => {
+            x.EnableRetryOnFailure(
+                maxRetryCount: 5, 
+                maxRetryDelay: TimeSpan.FromSeconds(30), 
+                errorCodesToAdd: null
+            );
+        }
+    );
+    
+    options.EnableDetailedErrors();
+    options.EnableSensitiveDataLogging(); // Use carefully in production
 });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
