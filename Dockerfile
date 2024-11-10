@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy project file and restore dependencies
 COPY backends.csproj ./
-RUN dotnet restore
+RUN dotnet restore backends.csproj
 
 # Copy the rest of the application code
 COPY . .
