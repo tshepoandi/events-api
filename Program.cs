@@ -3,9 +3,16 @@ using backends.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    // Clear known networks since you're behind a Fly.io proxy
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -77,7 +84,8 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty; // Serves the Swagger UI at the root URL
     });
 }
-app.Urls.Add("http://0.0.0.0:80");
+app.UseForwardedHeaders();
+// builder.WebHost.UseUrls("http://0.0.0.0:8080;https://0.0.0.0:443");
 app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins"); // Use the new CORS policy
 app.UseAuthorization();
