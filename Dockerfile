@@ -2,9 +2,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Copy project file and restore dependencies
-COPY backends.csproj ./
-RUN dotnet restore backends.csproj
+# Copy everything, restore dependencies, and publish
+COPY . . 
+RUN dotnet restore backends.csproj && \
+    dotnet publish backends.csproj -c Release -o out
 
 # Copy the rest of the application code
 COPY . .
@@ -25,5 +26,6 @@ ENV ASPNETCORE_ENVIRONMENT="Production"
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 
 EXPOSE 80
+EXPOSE 5000
 
 ENTRYPOINT ["dotnet", "backends.dll"]

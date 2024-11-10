@@ -86,11 +86,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        options.RoutePrefix = string.Empty; // Serves the Swagger UI at the root URL
+        options.RoutePrefix = ""; // Serves the Swagger UI at the root URL
     });
 }
 app.UseForwardedHeaders();
-// builder.WebHost.UseUrls("http://0.0.0.0:8080;https://0.0.0.0:443");
+builder.WebHost.UseUrls("http://0.0.0.0:80");
 app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins"); // Use the new CORS policy
 app.UseAuthorization();

@@ -1,18 +1,21 @@
 services:
   backend:
     build: 
-      context: .  # Assumes Dockerfile is in the same directory
-      dockerfile: Dockerfile  # Make sure you have a Dockerfile for your .NET project
+      context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
-      - "5189:80"
+      - "5000:5000"  # Maps local port 5000 to container port 5000
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=event-db;Username=admin;Password=admin123
+      - ASPNETCORE_URLS=http://+:5000  # Ensure .NET listens on port 5000
+      - ConnectionStrings__DefaultConnection=Host=long-dust-739.internal;Database=events_api;Username=postgres;Password=uCuZLuc5aXVfcj5
     depends_on:
       - db
     networks:
       - event-network
+
+
 
   db:
     image: postgres
