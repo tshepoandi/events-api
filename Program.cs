@@ -77,7 +77,7 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty; // Serves the Swagger UI at the root URL
     });
 }
-
+app.Urls.Add("http://0.0.0.0:80");
 app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins"); // Use the new CORS policy
 app.UseAuthorization();
