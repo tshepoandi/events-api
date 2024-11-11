@@ -6,51 +6,57 @@ using System.Reflection;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure forwarded headers early in the pipeline
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    // Clear known networks since you're behind a Fly.io proxy
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | 
+                              ForwardedHeaders.XForwardedProto |
+                              ForwardedHeaders.XForwardedHost;
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
+
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Configure Swagger
-builder.Services.AddSwaggerGen(options =>
+// Configure Swagger only for development
+if (builder.Environment.IsDevelopment())
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
+    builder.Services.AddSwaggerGen(options =>
     {
-        Title = "Events API",
-        Version = "v1",
-        Description = "Api for an events database",
-        Contact = new OpenApiContact
+        options.SwaggerDoc("v1", new OpenApiInfo
         {
-            Name = "Tshepo Samuel Mashiloane",
-            Email = "tshepomashiloane869@gmail.com",
-            Url = new Uri("https://github.com/tshepoandi")
+            Title = "Events API",
+            Version = "v1",
+            Description = "Api for an events database",
+            Contact = new OpenApiContact
+            {
+                Name = "Tshepo Samuel Mashiloane",
+                Email = "tshepomashiloane869@gmail.com",
+                Url = new Uri("https://github.com/tshepoandi")
+            }
+        });
+        
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+        if (File.Exists(xmlPath))
+        {
+            options.IncludeXmlComments(xmlPath);
         }
     });
-    
-    // Include XML comments if you have them
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
-    if (File.Exists(xmlPath))
-    {
-        options.IncludeXmlComments(xmlPath);
-    }
-});
+}
 
-// Configure CORS to allow any origin
+// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin() // Allow any origin
-                   .AllowAnyMethod() // Allow any method (GET, POST, etc.)
-                   .AllowAnyHeader(); // Allow any header
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
         });
 });
 
@@ -74,10 +80,17 @@ builder.Services.AddDbContext<BackendsDbContext>(options =>
         );
     });
     
-    options.EnableDetailedErrors();
+    // Only enable detailed errors in development
+    if (builder.Environment.IsDevelopment())
+    {
+        options.EnableDetailedErrors();
+    }
 });
 
 var app = builder.Build();
+
+// Apply forwarded headers early in the pipeline
+app.UseForwardedHeaders();
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -86,14 +99,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        options.RoutePrefix = ""; // Serves the Swagger UI at the root URL
+        options.RoutePrefix = string.Empty;
     });
 }
-app.UseForwardedHeaders();
-builder.WebHost.UseUrls("http://0.0.0.0:80");
+
+// Ensure HTTPS in production
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
-app.UseCors("AllowAllOrigins"); // Use the new CORS policy
+app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
 app.MapControllers();
+
+// Configure the listening URL
+app.Urls.Add("http://0.0.0.0:8080");
 
 app.Run();

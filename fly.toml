@@ -1,24 +1,33 @@
-app = "events-api-3xx86a"
+app = "events-api-3xx86a-billowing-snow-8499"
 primary_region = "jnb"
 
 [build]
-dockerfile = "Dockerfile"
+  dockerfile = "Dockerfile"
 
 [env]
-ASPNETCORE_ENVIRONMENT = "Production"
-ASPNETCORE_URLS = "http://+:80"
+  ASPNETCORE_ENVIRONMENT = "Production"
+  ASPNETCORE_URLS = "http://+:8080"
 
 [http_service]
-internal_port = 80
-force_https = true
-auto_stop_machines = true
-auto_start_machines = true
-min_machines_running = 0
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
 
-[[http_service.ports]]
-port = 80
-handlers = ["http"]
+[[mounts]]
+  source = "events_volume"
+  destination = "/data"
 
-[[http_service.ports]]
-port = 443
-handlers = ["tls", "http"]
+[[vm]]
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 1
+
+[deploy]
+  strategy = "immediate"
