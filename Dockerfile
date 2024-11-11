@@ -16,7 +16,7 @@ WORKDIR /app
 COPY --from=build /app/out .
 
 # Configure environment variables
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=http://+:5000
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 
 EXPOSE 8080
