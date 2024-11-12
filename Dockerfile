@@ -19,6 +19,6 @@ COPY --from=build /app/out .
 ENV ASPNETCORE_URLS=http://+:5000
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 
-EXPOSE 8080
+EXPOSE 5000
 
 ENTRYPOINT ["dotnet", "backends.dll"]

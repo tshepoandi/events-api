@@ -115,6 +115,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Configure the listening URL
-app.Urls.Add("http://0.0.0.0:8080");
+app.Urls.Add("http://0.0.0.0:5000");
 
 app.Run();
