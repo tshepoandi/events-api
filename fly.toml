@@ -24,4 +24,3 @@ primary_region = 'jnb'
 [
 env
 ]
-  ConnectionStrings__DefaultConnection = "Host=pg-1975442c-lovekilledtshepo-0388.j.aivencloud.com;Port=28024;Database=defaultdb;Username=avnadmin;Password=AVNS_PJt3l2E8NE25C3k4sGl;SSL Mode=Require;Trust Server Certificate=true"
