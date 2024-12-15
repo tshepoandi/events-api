@@ -7,10 +7,10 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "5000:5000"  # Maps local port 5000 to container port 5000
+      - "5000:8080"  # Maps local port 5000 to container port 5000
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5000  # Ensure .NET listens on port 5000
+      - ASPNETCORE_URLS=http://+:8080  # Ensure .NET listens on port 5000
     networks:
       - event-network
 
