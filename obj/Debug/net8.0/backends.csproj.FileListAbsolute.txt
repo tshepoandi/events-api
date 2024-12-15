@@ -221,3 +221,4 @@
 /home/shinobi/Desktop/projects/events-api/obj/Debug/net8.0/backends.genruntimeconfig.cache
 /home/shinobi/Desktop/projects/events-api/obj/Debug/net8.0/ref/backends.dll
 /home/shinobi/Desktop/projects/events-api/bin/Debug/net8.0/appsettings.Production.json
+/home/shinobi/Desktop/projects/events-api/bin/Debug/net8.0/System.Security.Permissions.dll
