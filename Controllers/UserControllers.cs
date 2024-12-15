@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backends.Data;
@@ -44,6 +45,9 @@ namespace backends.Controllers
                     // Password = HashPassword(userDto.Password), // Implement password hashing
                     Email = userDto.Email
                 };
+            var passwordHasher = new PasswordHasher<User>();
+            user.PasswordHash =
+                passwordHasher.HashPassword(user, userDto.Password);
 
             _context.Users.Add (user);
             await _context.SaveChangesAsync();

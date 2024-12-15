@@ -21,5 +21,6 @@ namespace backends.Entities
         public ICollection<EventAttendee> AttendingEvents {get; set;}
         public ICollection<Review> Reviews {get; set;}
         public ICollection<Comment> Comments {get;set;}
+        public string PasswordHash { get; internal set; }
     }
 }
