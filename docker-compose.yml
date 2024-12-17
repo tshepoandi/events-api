@@ -7,10 +7,11 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "5000:8080"  # Maps local port 5000 to container port 5000
+      - "5000:8080"  # Maps local port 5000 to container port 8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8080  # Ensure .NET listens on port 5000
+      - ASPNETCORE_URLS=http://+:8080  # Ensure .NET listens on port 8080
+      -
     networks:
       - event-network
 
@@ -24,6 +25,21 @@ services:
       - "5050:80"
     networks:
       - event-network
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Persist data
+    networks:
+      - event-network
+
+volumes:
+  pgdata:  # Define a volume for PostgreSQL data
 
 networks:
   event-network:

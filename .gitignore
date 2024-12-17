@@ -1,7 +1,7 @@
 # Ignore build output directories
 /bin/
 /obj/
-
+.env
 # Ignore user-specific files
 *.user
 *.suo
