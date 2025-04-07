@@ -1,0 +1,37 @@
+# Ignore build output directories
+/bin/
+/obj/
+.env
+# Ignore user-specific files
+*.user
+*.suo
+*.sln.ide
+
+# Ignore configuration files with sensitive information
+appsettings.Development.json
+appsettings.Production.json
+fly.toml
+# Ignore Docker-related files
+*.dockerignore
+# Dockerfile
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore IDE-specific files (if using Visual Studio)
+.vs/
+*.csproj.user
+*.csproj.lock
+
+# Ignore other generated files
+*.nupkg
+*.snupkg
+*.pdb
+*.mdb
+*.db
+
+# Ignore any other files you don't want to track

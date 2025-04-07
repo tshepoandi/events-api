@@ -1,37 +1,19 @@
+version: '3.8'
+
 services:
   backend:
     build: 
-      context: .  # Assumes Dockerfile is in the same directory
-      dockerfile: Dockerfile  # Make sure you have a Dockerfile for your .NET project
+      context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
-      - "5189:80"
+      - "5000:8080"  # Maps local port 5000 to container port 8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=event-db;Username=admin;Password=admin123
-    depends_on:
-      - db
+      - ASPNETCORE_URLS=http://+:8080  # Ensure .NET listens on port 8080
+    
     networks:
       - event-network
-
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: event-db
-    ports:
-      - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    networks:
-      - event-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d event-db"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   pgadmin:
     image: dpage/pgadmin4
@@ -41,13 +23,23 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin123
     ports:
       - "5050:80"
-    depends_on:
-      - db
     networks:
       - event-network
 
-networks:
-  event-network:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Persist data
+    networks:
+      - event-network
 
 volumes:
-  db-data:
+  pgdata:  # Define a volume for PostgreSQL data
+
+networks:
+  event-network:
